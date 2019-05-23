@@ -1,7 +1,6 @@
 FROM  alpine:latest as build
 
 #Define build argument for version
-#ARG VERSION=1.12.0
 ARG VERSION=1.16.0
 
 # Install build tools, libraries and utilities 
@@ -9,6 +8,8 @@ RUN apk add --no-cache --virtual .build-deps                                    
         build-base                                                                  \
         gnupg                                                                       \
         pcre-dev                                                                    \
+        openssl                                                                     \
+        openssl-dev                                                                 \
         wget                                                                        \
         zlib-dev
 
@@ -28,7 +29,8 @@ WORKDIR /tmp/nginx-${VERSION}
 # Build and install nginx
 RUN ./configure                                                                     \
         --with-ld-opt="-static"                                                     \
-        --with-http_sub_module                                                  &&  \
+        --with-http_sub_module                                                      \
+        --with-http_ssl_module                                                  &&  \
     make install                                                                &&  \
     strip /usr/local/nginx/sbin/nginx
 
