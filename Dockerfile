@@ -2,7 +2,7 @@ FROM  alpine:latest as build
 
 #Define build argument for version
 #ARG VERSION=1.12.0
-ARG VERSION=1.14.2
+ARG VERSION=1.16.0
 
 # Install build tools, libraries and utilities 
 RUN apk add --no-cache --virtual .build-deps                                        \
