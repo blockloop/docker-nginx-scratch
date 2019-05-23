@@ -1,7 +1,10 @@
-# docker-nginx-scratch
-Create new Nginx Server from Scratch by using Docker File 
+# Dockerized NGINX from scratch
 
-## Build
-docker image  build -t nginx-local .
-## Run
-docker run -p  80:80 nginx-local
+NGINX running on a scratch container for ultimate security.
+
+## Use
+
+```
+FROM docker.io/blockloop/nginx-scratch:latest
+COPY nginx.conf /usr/local/nginx/conf/
+```

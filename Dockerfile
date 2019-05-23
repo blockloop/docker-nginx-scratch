@@ -6,18 +6,16 @@ ARG VERSION=1.16.0
 
 # Install build tools, libraries and utilities 
 RUN apk add --no-cache --virtual .build-deps                                        \
-        build-base                                                                  \   
+        build-base                                                                  \
         gnupg                                                                       \
         pcre-dev                                                                    \
         wget                                                                        \
-        zlib-dev                                                                    
-        
-                                                                       
+        zlib-dev
 
 # Retrieve, verify and unpack Nginx source - key server pgp.mit.edu  
 RUN set -x                                                                      &&  \
     cd /tmp                                                                     &&  \
-    gpg --keyserver pool.sks-keyservers.net --recv-keys                                         \
+    gpg --keyserver pool.sks-keyservers.net --recv-keys                             \
         B0F4253373F8F6F510D42178520A9993A1C052F8                                &&  \
     wget -q http://nginx.org/download/nginx-${VERSION}.tar.gz                   &&  \
     wget -q http://nginx.org/download/nginx-${VERSION}.tar.gz.asc               &&  \
@@ -39,8 +37,7 @@ RUN ./configure                                                                 
 RUN ln -sf /dev/stdout /usr/local/nginx/logs/access.log                         &&  \
     ln -sf /dev/stderr /usr/local/nginx/logs/error.log
 
-FROM scratch 
-
+FROM scratch
 # Customise static content, and configuration
 COPY --from=build /etc/passwd /etc/group /etc/
 COPY --from=build /usr/local/nginx /usr/local/nginx
