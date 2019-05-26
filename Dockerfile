@@ -43,6 +43,7 @@ FROM scratch
 # Customise static content, and configuration
 COPY --from=build /etc/passwd /etc/group /etc/
 COPY --from=build /usr/local/nginx /usr/local/nginx
+COPY --from=build /etc/nginx/mime.types /etc/nginx/mime.types
 COPY index.html /usr/share/nginx/html/
 COPY nginx.conf /usr/local/nginx/conf/
 
